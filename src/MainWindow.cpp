@@ -65,10 +65,13 @@ MainWindow::MainWindow(QWidget *parent)
 
         QLineEdit {
             background: #ffffff;
+            color: #111827;
             border: 1px solid #d1d5db;
             border-radius: 8px;
             padding: 9px 10px;
             selection-background-color: #2563eb;
+            selection-color: #ffffff;
+            placeholder-text-color: #9ca3af;
         }
 
         QLineEdit:focus {
