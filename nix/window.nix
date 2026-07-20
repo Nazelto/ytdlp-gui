@@ -64,6 +64,7 @@ pkgs.stdenv.mkDerivation (
   {
     inherit pname version src;
     dontWrapQtApps = true;
+    dontStrip = true;
 
     nativeBuildInputs =
       with pkgs;
