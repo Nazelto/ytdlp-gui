@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id="*"
+    Name="@productName@"
+    Language="1033"
+    Version="@msiVersion@"
+    Manufacturer="@manufacturer@"
+    UpgradeCode="@upgradeCode@">
+
+    <Package
+      InstallerVersion="500"
+      Compressed="yes"
+      InstallScope="perMachine"
+      Platform="x64" />
+
+    <MajorUpgrade
+      DowngradeErrorMessage="A newer version of @productName@ is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLFOLDER" Name="@productName@">
+          <Component Id="ApplicationFiles" Guid="@applicationFilesGuid@" Win64="yes">
+            <File Id="YtdlpGuiExe" Source="@app@/bin/ytdlp-gui.exe" KeyPath="yes" />
+            <File Id="Qt6CoreDll" Source="@app@/bin/Qt6Core.dll" />
+            <File Id="Qt6GuiDll" Source="@app@/bin/Qt6Gui.dll" />
+            <File Id="Qt6WidgetsDll" Source="@app@/bin/Qt6Widgets.dll" />
+          </Component>
+
+          <Directory Id="PlatformsDir" Name="platforms">
+            <Component Id="QtPlatformFiles" Guid="@qtPlatformFilesGuid@" Win64="yes">
+              <File Id="QtWindowsPlatformDll" Source="@app@/bin/platforms/qwindows.dll" KeyPath="yes" />
+            </Component>
+          </Directory>
+
+          <Directory Id="ToolsDir" Name="tools">
+            <Component Id="BundledToolFiles" Guid="@bundledToolFilesGuid@" Win64="yes">
+              <File Id="YtDlpExe" Source="@app@/bin/tools/yt-dlp.exe" KeyPath="yes" />
+              <File Id="FfmpegExe" Source="@app@/bin/tools/ffmpeg.exe" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="DefaultFeature" Title="@productName@" Level="1">
+      <ComponentRef Id="ApplicationFiles" />
+      <ComponentRef Id="QtPlatformFiles" />
+      <ComponentRef Id="BundledToolFiles" />
+    </Feature>
+  </Product>
+</Wix>
